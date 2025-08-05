@@ -2,18 +2,21 @@
 :root{
     --primary-color:#1E2A38;
     --secondary-color:#7A8CA0;
+    --background-color:#f7f8fb;
 }
 
 .student-page{
-    margin:0px;
+    background-color: #dfe5eb;
     color:var(--primary-color);
+    // box-sizing: border-box;
+    padding:2em;
 }
 .student-info{
     display: flex;
     justify-content: start;
     gap:1em;
     margin:1em auto;
-     background: #ffffff;
+     background: var(--background-color);
   border-radius: 12px;
   box-shadow: 0 2px 2px #7A8CA050;
   padding: 1.5em 1em;
@@ -41,10 +44,11 @@
 }
 
 .academic-summary{
+    background-color: var(--background-color);
     flex:1;
     max-width: 360px;
     max-height: 400px;
-    overflow-y:scroll ;
+    // overflow-y:scroll ;
      border-radius: 12px;
   box-shadow: 0 2px 6px #7A8CA050;
   padding: 1em 0.5em;
@@ -53,10 +57,11 @@
   margin: 1em;
 }
 .recent-activity{
+    background-color: var(--background-color);
     flex:1;
     max-width: 360px;
     max-height: 400px;
-    overflow-y:scroll ;
+    // overflow-y:scroll ;
      border-radius: 12px;
   box-shadow: 0 2px 6px #7A8CA060;
   padding: 1em 0.5em;
@@ -69,30 +74,35 @@
     text-align: center;
 }
 
+
 .degree-div{
-     display: flex;
-    justify-content: start;
-    gap:1em;
+    max-width: 900px;
+    text-align: center;
     margin:1em auto;
-     background: #ffffff;
+}
+.degree-grid {
+    background-color: var(--background-color);
+  display: grid;
+  grid-template-columns: repeat(3, 1fr); 
+  gap: 1em; 
+  list-style: none;
+  width: 900px; 
+  margin: 1em auto;
+  text-align: center;
   border-radius: 12px;
   box-shadow: 0 2px 2px #7A8CA050;
   padding: 1.5em 1em;
-  max-width: 900px;
-  transition: all 0.3s ease;
-  cursor: pointer;
-  
 }
 
-.degree-list{
-    list-style: none;
-    width:100%;
+.degree-individual {
+  padding: 1em 2em;
+  margin: 0; 
+  background: #fff;
+  border-radius: 8px;
+  transition: all 0.2s ease;
 }
-.degree-individual{
-    padding:1em 2em;
-    margin: 0.5em 1em;
-}
-.degree-individual:hover{
-     box-shadow: 0 3px 4px #7A8CA060;
-    transform: translateY(-1px);
+
+.degree-individual:hover {
+  box-shadow: 0 3px 4px #7A8CA060;
+  transform: translateY(-1px);
 }

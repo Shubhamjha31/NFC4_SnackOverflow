@@ -1,10 +1,15 @@
-html,body{
-    padding: 0;
-    margin: 0;
-    box-sizing: border-box;
-    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+/* Apply border-box to everything */
+
+
+html {
+  padding: 0px;
+  margin: 0px;
+  height:100vh;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
 }
 
-:root{
-    --primary-color:#1E2A38;
+body{
+      padding: 0px;
+  margin: 0px;
+    height: 100vh;
 }
