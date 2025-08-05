@@ -1,0 +1,28 @@
+
+:root{
+    --primary-color:#1E2A38;
+    --secondary-color:#7A8CA0;
+}
+
+.student-page{
+    margin:0px;
+    color:var(--primary-color);
+}
+.student-info{
+    display: flex;
+    justify-content: space-around;
+    margin:1em;
+     background: #ffffff;
+  border-radius: 12px;
+  box-shadow: 0 2px 6px var(--secondary-color);
+  padding: 1.5rem;
+  max-width: 600px;
+  transition: all 0.3s ease;
+  cursor: pointer;
+  
+}
+.student-info:hover {
+    box-shadow: 0 4px 10px var(--secondary-color);
+    transform: translateY(-4px);
+}
+

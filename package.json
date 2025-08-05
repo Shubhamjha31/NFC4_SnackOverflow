@@ -14,5 +14,9 @@
   "type": "module",
   "workspaces": [
     "src/new_hacathon_frontend"
-  ]
+  ],
+  "dependencies": {
+    "react-dom": "^19.1.1",
+    "react-router-dom": "^6.30.1"
+  }
 }
