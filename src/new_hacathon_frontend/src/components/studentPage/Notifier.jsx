@@ -8,7 +8,7 @@ const Notifier = ({ isUserLoggedIn, isUserGrantedAccess }) => {
       {!isUserGrantedAccess && !isUserLoggedIn && (
         <FontAwesomeIcon
           className="faicon"
-          style={{ color: 'black', fontSize: '18px' }}
+          style={{ color: '#3e3e40ff', fontSize: '18px' }}
           icon={faShield}
         />
       )}
