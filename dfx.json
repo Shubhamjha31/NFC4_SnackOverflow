@@ -1,0 +1,26 @@
+{
+  "canisters": {
+    "new_hacathon_backend": {
+      "main": "src/new_hacathon_backend/main.mo",
+      "type": "motoko"
+    },
+    "new_hacathon_frontend": {
+      "dependencies": [
+        "new_hacathon_backend"
+      ],
+      "source": [
+        "src/new_hacathon_frontend/dist"
+      ],
+      "type": "assets",
+      "workspace": "new_hacathon_frontend"
+    }
+  },
+  "defaults": {
+    "build": {
+      "args": "",
+      "packtool": ""
+    }
+  },
+  "output_env_file": ".env",
+  "version": 1
+}
