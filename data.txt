@@ -3,14 +3,14 @@ dfx canister call institutes setInstituteInfo '("Vdemy", "https://drive.google.c
 dfx canister id users
 
 dfx canister call institutes issueCredential \
-  '(principal "trwdi-fh777-77774-qaaqa-cai",
+  '(principal "ulvla-h7777-77774-qaacq-cai",
  principal "w7x7r-cok77-xa", "Certification 
 in Web Development", "https://images.credly.
 com/images/41cce36f-473b-4aad-9dea-fe5f3a094
 ceb/WD_gold.png", null)'
 (variant { err = "User already has this degree" })
 
-dfx canister call institutes issueCredential   '(principal "trwdi-fh777-77774-qaaqa-cai", principal "w7x7r-cok77-xa", "Certi
+dfx canister call institutes issueCredential   '(principal "ulvla-h7777-77774-qaacq-cai", principal "w7x7r-cok77-xa", "Certi
 fication in Robotics and Automation", "https
 ://cityoflearning-uploads.s3.amazonaws.com/2
 /Badge/2-Badge-3746-168002.png", null)'
