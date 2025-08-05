@@ -4,6 +4,14 @@
       "main": "src/new_hacathon_backend/main.mo",
       "type": "motoko"
     },
+    "institutes": {
+      "main": "src/Institutes/institute.mo",
+      "type": "motoko"
+    },
+    "users": {
+      "main": "src/users/user.mo",
+      "type": "motoko"
+    },
     "new_hacathon_frontend": {
       "dependencies": [
         "new_hacathon_backend"
