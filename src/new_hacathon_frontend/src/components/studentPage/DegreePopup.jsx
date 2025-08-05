@@ -3,6 +3,8 @@ import * as React from "react";
 
 const DegreePopup = ({ degree, onClose }) => {
   return (
+
+    // fetch credential details using function
     <div className="popup-overlay active" onClick={onClose}>
       <div className="popup-content" onClick={(e) => e.stopPropagation()}>
         <button className="close-popup" onClick={onClose}>
@@ -16,7 +18,7 @@ const DegreePopup = ({ degree, onClose }) => {
           <p>Issue date: {degree.issueDate} </p>
           <p>Expiry: {degree.expiry}</p>
           <p>Issuer ID: {degree.issuerID}</p>
-          {/* Add more degree details here */}
+          
         </div>
       </div>
     </div>

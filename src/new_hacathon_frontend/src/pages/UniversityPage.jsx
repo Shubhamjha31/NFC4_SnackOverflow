@@ -76,6 +76,7 @@ function UniversityPage() {
       email: "liam.brown@student.tvu.edu"
     }
   ]);
+    //fetch actual data , call function here 🔼
 
   const [searchTerm, setSearchTerm] = useState("");
 
@@ -86,7 +87,7 @@ function UniversityPage() {
     ));
   };
 
-  // Filter students based on search term
+  // Filter students
   const filteredStudents = students.filter(student =>
     student.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
     student.studentId.toLowerCase().includes(searchTerm.toLowerCase()) ||

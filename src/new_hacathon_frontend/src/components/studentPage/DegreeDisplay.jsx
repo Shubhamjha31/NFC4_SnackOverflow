@@ -5,7 +5,7 @@ const DegreeDisplay = () => {
   const [selectedDegree, setSelectedDegree] = useState(null);
   const [showPopup, setShowPopup] = useState(false);
 
-  // Sample degree data - replace with your actual data
+  // Sample credential data 
  const degrees = [
   {
     id: 1234,
@@ -86,7 +86,7 @@ const DegreeDisplay = () => {
   }
 ];
 
-
+// Fetch all credentials under that user's ID (call function here)
   const handleViewDetails = (degree) => {
     setSelectedDegree(degree);
     setShowPopup(true);

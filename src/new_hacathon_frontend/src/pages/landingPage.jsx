@@ -7,13 +7,11 @@ const LandingPage = () => {
 
   const handleSearch = (e) => {
     e.preventDefault();
-    // Search functionality will be implemented later
     console.log('Searching for:', walletId);
   };
 
   return (
     <div className="landing-container">
-      {/* Animated blockchain background elements */}
       <div className="blockchain-bg">
         {[...Array(20)].map((_, i) => (
           <div key={i} className="blockchain-node" style={{
@@ -26,8 +24,8 @@ const LandingPage = () => {
 
       <header className="landing-header">
         <div className="logo">
-          <span className="logo-icon">📚</span>
-          <span className="logo-text">EduChain</span>
+          <span className="logo-icon">✅</span>
+          <span className="logo-text">VeriFide</span>
         </div>
         <nav className="nav-links">
           <a href="/student">Student</a>

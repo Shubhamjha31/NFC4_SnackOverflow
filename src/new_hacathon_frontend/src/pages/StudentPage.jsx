@@ -6,8 +6,17 @@ import "../styles/studentPage.scss"
 function StudentPage() {
     return (
         <div className="student-page">
+              <div className="blockchain-bg">
+        {[...Array(20)].map((_, i) => (
+          <div key={i} className="blockchain-node" style={{
+            left: `${Math.random() * 100}%`,
+            top: `${Math.random() * 100}%`,
+            animationDelay: `${i * 0.2}s`
+          }}></div>
+        ))}
+      </div>
             <Notifier
-                isUserLoggedIn={false}
+                isUserLoggedIn={true}
                 isUserGrantedAccess={false} />
             <div className="student-info">
                 <img className="student-image" src="/"></img>
@@ -16,14 +25,14 @@ function StudentPage() {
                     <p className="student-bio">The company itself is a very successful company. What repulses those who praise him, what will happen to the suffering of those who are present, will I make some opening to the wise? Having said that, the trouble with the great hatred of the offices itself will turn out to be beneficial to some!</p>
                 </div>
             </div>
-
+           
             <div className="activity-summary-log">
-                {/* Academic summary */}
+                {/* Academic summary BY AGENTIC AI*/} 
                 <div className="academic-summary">
                     <h3 className="subheading">Academic Summary</h3>
                     <p>Shubham Jha earned a B.Sc in Computer Science (TVU-CS-2023-001) on 15/05/2023. Maria Garcia completed an MBA (TVU-MBA-2023-045) on 18/05/2023. James Wilson holds an M.Sc in Data Science (TVU-DS-2023-012). All credentials are blockchain-verified.</p>
                 </div>
-                {/* Recent Activity */}
+                {/* Recent Activity FETCHED FROM BLOCKCHAIN (Activity log fetching function) */}
                 <div className="recent-activity">
                     <h3 className="subheading">Recent Activity</h3>
                     <ul><li>15/05/2023 - Issued B.Sc Computer Science to Alex Johnson</li>
@@ -32,7 +41,7 @@ function StudentPage() {
                         <li>10/07/2023 - B.Eng Electrical expired (10-year validity ended)</li></ul>
                 </div>
             </div>
-            {/* Display degrees */}
+            {/* Display degrees  */}
             <div>
                 <DegreeDisplay />
             </div>

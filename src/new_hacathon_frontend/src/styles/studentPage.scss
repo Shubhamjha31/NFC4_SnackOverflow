@@ -13,27 +13,138 @@
   font-family: "Inter", sans-serif;
   position:relative;
 }
+/* Notifier Container */
 .notifier {
-  background-color: var(--card-bg);
-  position: absolute;
-  top: 4em;
-  right: 16em;
-  z-index: 999;
-  height: 3em;
-  width: 3em;
-  border-radius: 4px;
-  box-shadow: 0px 4px 4px var(--background-color);
+  position: relative;
+  display: inline-block;
+  margin-right: 20px;
+}
 
-  display: flex;               
-  align-items: center;        
-  justify-content: center;    
+/* Icon Container */
+.icon-container {
+  background-color: var(--card-bg);
+  position: relative;
+  width: 3em;
+  height: 3em;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  border-radius: 50%;
+  box-shadow: 0px 2px 4px #4a90e250;
+  transition: all ease-in-out 0.3s;
+}
+
+.icon-container:hover {
+   box-shadow: 0px 4px 6px #4a90e280;
+  transform: translateY(-2px);
 }
 
 .faicon {
-  height: 80%;
-  width: 80%;
+  color: var(--primary-color);
+  font-size: 24px;
 }
 
+.notification-badge {
+  position: absolute;
+  top: 2px;
+  right: 2px;
+  background-color: #ff4d4f;
+  color: white;
+  border-radius: 50%;
+  width: 18px;
+  height: 18px;
+  font-size: 10px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: bold;
+}
+
+.popup {
+  position: absolute;
+  right: 10em; /* Changed from right: 0 to left: 0 for left alignment */
+  top: 50px;
+  width: 300px;
+  background: white;
+  border-radius: 8px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+  z-index: 1000;
+  padding: 15px;
+  transition: all ease-in-out 0.3s;
+}
+
+.popup-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 10px;
+}
+
+.popup-header h3 {
+  margin: 0;
+  font-size: 16px;
+}
+
+.popup-header button {
+  background: none;
+  border: none;
+  color: var(--secondary-color);
+  cursor: pointer;
+  font-size: 12px;
+}
+
+.notification-list {
+  max-height: 300px;
+  overflow-y: auto;
+}
+
+.notification-item {
+  padding: 10px 0;
+  border-bottom: 1px solid #eee;
+}
+
+.notification-item:last-child {
+  border-bottom: none;
+}
+
+.notification-item p {
+  margin: 0;
+  font-size: 14px;
+}
+
+.notification-time {
+  font-size: 12px;
+  color: #666;
+  display: block;
+  margin-top: 5px;
+}
+
+.blockchain-bg {
+  position: absolute;
+  height: 100vh;
+  top:0px;
+  left:0px;
+  width:full;
+  z-index: 0;
+}
+
+.blockchain-node {
+  position: absolute;
+  width: 8px;
+  height: 8px;
+  background-color: rgba(74, 144, 226, 0.15);
+  border-radius: 50%;
+  animation: float 15s infinite linear;
+}
+
+@keyframes float {
+  0% { transform: translateY(0) translateX(0); }
+  25% { transform: translateY(-20px) translateX(10px); }
+  50% { transform: translateY(0) translateX(20px); }
+  75% { transform: translateY(20px) translateX(10px); }
+  100% { transform: translateY(0) translateX(0); }
+}
 .student-info {
   display: flex;
   align-items: center;
@@ -45,6 +156,7 @@
   padding: 2em;
   max-width: 900px;
   transition: transform 0.25s ease, box-shadow 0.25s ease;
+  z-index: 2;
 }
 
 .student-info:hover {
@@ -81,6 +193,7 @@
   padding: 1.5em;
   margin: 1em;
   transition: transform 0.25s ease, box-shadow 0.25s ease;
+    z-index: 2;
 }
 
 .academic-summary:hover,
@@ -101,6 +214,7 @@
   max-width: 1000px;
   text-align: center;
   margin: 2em auto;
+  z-index: 2;
 }
 
 .degree-grid {
