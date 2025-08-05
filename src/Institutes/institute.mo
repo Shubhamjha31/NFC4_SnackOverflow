@@ -50,6 +50,25 @@ func findCredentialIndex(owner: Principal, credId: Text) : ?Nat {
   return null;
 };
 
+   stable var instituteName : Text = "Default Institute Name";
+  stable var instituteLogo : Text = "https://default.logo.url/logo.png";
+
+  // Function to get the institute's info
+  public query func getInstituteInfo() : async { name: Text; logo: Text } {
+    { name = instituteName; logo = instituteLogo }
+  };
+
+  // Function to set/update the institute's info
+  public shared({ caller }) func setInstituteInfo(name: Text, logo: Text) : async Result.Result<(), Text> {
+    // OPTIONAL: You may add access control here to restrict who can update
+    if (name == "") return #err("Institute name cannot be empty");
+    if (logo == "") return #err("Institute logo URL cannot be empty");
+
+    instituteName := name;
+    instituteLogo := logo;
+
+    #ok(())
+  };
 
   public shared({ caller }) func issueCredential(
     owner : Principal,
