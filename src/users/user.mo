@@ -5,22 +5,22 @@ import Error "mo:base/Error";
 import Option "mo:base/Option";
 import Nat "mo:base/Nat";
 
-type Credential = {
-  id : Text;
-  issuer : Principal;
-  degree : Text;
-  issueDate : Int;
-  expiry : ?Int;
-  revoked : Bool;
-  image : Text;
-};
-
-type UserProfile = {
-  bio : Text;
-  credentials : [Credential];
-};
-
 persistent actor User {
+  public type Credential = {
+    id : Text;
+    issuer : Principal;
+    degree : Text;
+    issueDate : Int;
+    expiry : ?Int;
+    revoked : Bool;
+    image : Text;
+  };
+
+  public type UserProfile = {
+    bio : Text;
+    credentials : [Credential];
+  };
+
   stable var profile : ?UserProfile = null;
 
   func findIndex<T>(array : [T], predicate : T -> Bool) : ?Nat {
@@ -47,7 +47,6 @@ persistent actor User {
 
   public shared({ caller }) func addCredential(cred : Credential) : async Result.Result<(), Text> {
     try {
-      // Validate credential
       if (cred.id == "") return #err("Invalid credential ID");
       if (cred.degree == "") return #err("Degree cannot be empty");
       
@@ -74,7 +73,6 @@ persistent actor User {
           switch (findIndex<Credential>(p.credentials, func(c : Credential) : Bool { c.id == cred.id })) {
             case (null) { #err("Credential not found") };
             case (?index) {
-              // Preserve original issue date and issuer
               let original = p.credentials[index];
               let updatedCred = {
                 cred with 
@@ -97,5 +95,6 @@ persistent actor User {
     }
   };
 
-  // ... (keep other functions)
-}
+  // Add other public/shared functions here...
+
+};
