@@ -1,0 +1,117 @@
+/* University Admin Dashboard Styles */
+.university-dashboard {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 2rem;
+  background-color: var(--background-color);
+  color: var(--primary-color);
+  font-family: "Inter", sans-serif;
+}
+
+.admin-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 2rem;
+}
+
+.admin-profile {
+  display: flex;
+  align-items: center;
+  gap: 1.5rem;
+  background: var(--card-bg);
+  padding: 1.5rem;
+  border-radius: 12px;
+  box-shadow: 0 4px 12px var(--shadow-color);
+}
+
+.admin-avatar {
+  width: 100px;
+  height: 100px;
+  border-radius: 50%;
+  object-fit: cover;
+  border: 3px solid var(--secondary-color);
+}
+
+.admin-info h2 {
+  margin: 0;
+  color: var(--primary-color);
+}
+
+.admin-info p {
+  margin: 0.5rem 0 0;
+  color: #666;
+}
+
+.credentials-card {
+  background: var(--card-bg);
+  border-radius: 12px;
+  box-shadow: 0 4px 12px var(--shadow-color);
+  padding: 1.5rem;
+  margin-top: 2rem;
+}
+
+.credentials-table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: 1rem;
+}
+
+.credentials-table th, 
+.credentials-table td {
+  padding: 12px 15px;
+  text-align: left;
+  border-bottom: 1px solid #eee;
+}
+
+.credentials-table th {
+  background-color: var(--secondary-color);
+  color: white;
+  font-weight: 600;
+}
+
+.credentials-table tr:hover {
+  background-color: #f8fafc;
+}
+
+.status-pending {
+  color: #FFA500;
+  font-weight: 600;
+}
+
+.status-approved {
+  color: #008000;
+  font-weight: 600;
+}
+
+.status-rejected {
+  color: #FF0000;
+  font-weight: 600;
+}
+
+.action-btn {
+  padding: 6px 12px;
+  border-radius: 4px;
+  border: none;
+  cursor: pointer;
+  font-weight: 500;
+  margin-right: 5px;
+}
+
+.approve-btn {
+  background-color: #e6f7ee;
+  color: #008000;
+}
+
+.reject-btn {
+  background-color: #ffebee;
+  color: #FF0000;
+}
+
+.search-bar {
+  padding: 10px 15px;
+  width: 300px;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  margin-bottom: 1rem;
+}

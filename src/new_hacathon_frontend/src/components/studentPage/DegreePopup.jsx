@@ -9,11 +9,13 @@ const DegreePopup = ({ degree, onClose }) => {
           &times;
         </button>
         <div id="popupDetails">
-          <h2>{degree.title}</h2>
-          <p>{degree.details}</p>
-          <p> {degree.id}</p>
-          <p>Issue date: 01/01/01</p>
-          <p>Issued by: XYZ</p>
+          <h2>Name: {degree.title}</h2>
+          <p>Description: {degree.details}</p>
+          <p>Credential ID: {degree.id}</p>
+          <p>Owner: {degree.owner}</p>
+          <p>Issue date: {degree.issueDate} </p>
+          <p>Expiry: {degree.expiry}</p>
+          <p>Issuer ID: {degree.issuerID}</p>
           {/* Add more degree details here */}
         </div>
       </div>
