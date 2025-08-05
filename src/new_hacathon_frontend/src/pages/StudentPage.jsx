@@ -4,7 +4,6 @@ import "../styles/studentPage.scss"
 function StudentPage() {
     return (
         <div className="student-page">
-            <h1>Student Portal</h1>
             <div className="student-info">
                 <img className="student-image" src="/"></img>
                 <div  className="student-info-text">
@@ -12,10 +11,17 @@ function StudentPage() {
                     <p className="student-bio">Bio</p>
                 </div>
             </div>
+           
+           <div className="activity-summary-log">
             {/* Academic summary */}
-            <div className="academic-summary"> </div>
+            <div className="academic-summary"> 
+                <h3 className="subheading">Academic Summary</h3>
+            </div>
             {/* Recent Activity */}
-            <div className="recent-activity"></div>
+            <div className="recent-activity">
+                <h3 className="subheading">Recent Activity</h3>
+            </div>
+            </div>
             {/* Display degrees */}
             <div>
                 <DegreeDisplay/>
