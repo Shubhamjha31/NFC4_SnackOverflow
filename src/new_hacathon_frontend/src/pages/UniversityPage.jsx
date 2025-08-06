@@ -173,7 +173,7 @@ function UniversityPage() {
 
       <div className="admin-profile">
         {uniData?.logo && (
-          <img src={uniData.logo} alt="Admin Profile" className="admin-avatar" />
+          <img src={`${uniData.logo}`} alt="Admin Profile" className="admin-avatar" />
         )}
         <div className="admin-info">
           <h2>{uniData?.name || "Loading..."}</h2>

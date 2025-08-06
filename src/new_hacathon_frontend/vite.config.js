@@ -18,6 +18,9 @@ export default defineConfig({
     },
   },
   server: {
+    headers: {
+      "Content-Security-Policy": "default-src 'self'; img-src * data: blob:;"
+    },
     proxy: {
       "/api": {
         target: "http://127.0.0.1:4943",

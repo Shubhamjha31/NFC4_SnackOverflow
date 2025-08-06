@@ -14,7 +14,10 @@ persistent actor User {
     expiry : ?Int;
     revoked : Bool;
     image : Text;
+    fraud: Bool;
   };
+
+  stable var isFraud: Bool = false;
 
   public type UserProfile = {
     bio : Text;
@@ -220,6 +223,17 @@ persistent actor User {
     };
 
     return #err("Access denied");
+  };
+  public shared({ caller }) func isFraudulent() : async Bool {
+    isFraud
+  };
+  public shared({ caller }) func markAsFraudulent() : async Result.Result<(), Text> {
+    isFraud := true;
+    #ok(())
+  };
+  public shared({ caller }) func markAsNotFraudulent() : async Result.Result<(), Text> {
+    isFraud := false;
+    #ok(()) 
   };
 
 };
