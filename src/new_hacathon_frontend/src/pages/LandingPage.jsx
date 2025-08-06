@@ -1,13 +1,35 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
+import { useNavigate } from 'react-router-dom'; // ✅ For navigation
 import "../styles/landingPage.scss"; 
+import tokens from '../utils/tokens.json'; // ✅ Import JSON
 
 const LandingPage = () => {
   const [walletId, setWalletId] = useState('');
   const [isFocused, setIsFocused] = useState(false);
+  const [filteredTokens, setFilteredTokens] = useState([]);
+  const navigate = useNavigate();
+
+  useEffect(() => {
+    if (walletId.trim() === '') {
+      setFilteredTokens([]);
+      return;
+    }
+    const filtered = tokens.filter(token =>
+      token.id.toLowerCase().includes(walletId.toLowerCase()) ||
+      token.name.toLowerCase().includes(walletId.toLowerCase())
+    );
+    setFilteredTokens(filtered);
+  }, [walletId]);
 
   const handleSearch = (e) => {
     e.preventDefault();
-    console.log('Searching for:', walletId);
+    if (walletId.trim()) {
+      navigate(`/verify/${walletId}`);
+    }
+  };
+
+  const handleSelectToken = (id) => {
+    navigate(`/verify/${id}`);
   };
 
   return (
@@ -24,7 +46,7 @@ const LandingPage = () => {
 
       <header className="landing-header">
         <div className="logo">
-          <span className="logo-icon">✅</span>
+          <div className="logo-icon"></div>
           <span className="logo-text">VeriFide</span>
         </div>
         <nav className="nav-links">
@@ -60,6 +82,16 @@ const LandingPage = () => {
                 </svg>
               </button>
             </div>
+
+            {filteredTokens.length > 0 && (
+              <ul className="search-suggestions">
+                {filteredTokens.map(token => (
+                  <li key={token.id} onClick={() => handleSelectToken(token.id)}>
+                    <strong>{token.name}</strong> – {token.id}
+                  </li>
+                ))}
+              </ul>
+            )}
           </form>
 
           <div className="hero-stats">
@@ -80,7 +112,7 @@ const LandingPage = () => {
       </main>
 
       <footer className="landing-footer">
-        <p>Powered by blockchain technology • Secure • Transparent • Trustless</p>
+        <p>Powered by blockchain technology • Secure • Transparent • Trustworthy</p>
       </footer>
     </div>
   );

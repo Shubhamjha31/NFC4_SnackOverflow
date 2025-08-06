@@ -3,7 +3,6 @@ import "../styles/universityPage.scss";
 import { institutes } from '../../../declarations/institutes';
 import { Principal } from "@dfinity/principal";
 
-// 🔹 Dummy AI fraud detection function (replace with Ollama later)
 async function checkFraudRules(uniData, issuedCount) {
   const threshold = 100;
   if (issuedCount > threshold) {
@@ -27,23 +26,19 @@ function UniversityPage() {
     expiry: ""
   });
 
-  // Fetch university info
   async function getUniData() {
     return await institutes.getInstituteInfo();
   }
 
-  // Fetch all credentials
   async function getAllCreds() {
     return await institutes.getAllCredentials();
   }
 
-  // Initial fetch
   useEffect(() => {
     async function fetchData() {
       try {
         const result = await getUniData();
         setUniData(result);
-
         const creds = await getAllCreds();
         setTotalCreds(creds);
       } catch (err) {
@@ -53,13 +48,12 @@ function UniversityPage() {
     fetchData();
   }, []);
 
-  // Map credentials into student table format
   useEffect(() => {
     if (Array.isArray(totalCreds)) {
       const mapped = totalCreds.map((cred) => ({
         id: cred.id,
         studentId: cred.owner.toString(),
-        owner: cred.owner,
+        owner: cred.owner.toString(),
         userCanisterId: cred.institute.toString(),
         dateIssued: new Date(Number(cred.issueDate) / 1_000_000).toLocaleDateString(),
         credential: cred.degree,
@@ -70,7 +64,6 @@ function UniversityPage() {
     }
   }, [totalCreds]);
 
-  // Handle revoke
   const handleRevoke = async (student) => {
     if (!window.confirm(`Revoke ${student.credential} for ${student.studentId}?`)) return;
     try {
@@ -79,18 +72,17 @@ function UniversityPage() {
         Principal.fromText(student.owner),
         student.id
       );
-
-      // Refresh list
-      const creds = await getAllCreds();
-      setTotalCreds(creds);
+      setStudents((prev) =>
+        prev.map(s =>
+          s.id === student.id ? { ...s, status: "revoked" } : s
+        )
+      );
     } catch (error) {
       console.error("Error revoking credential:", error);
     }
   };
 
-  // Handle adding new credential
   const handleAddCredential = async () => {
-    // ✅ Validate Principals
     let userPrincipal, ownerPrincipal;
     try {
       userPrincipal = Principal.fromText(newCredential.userCanisterId);
@@ -100,7 +92,6 @@ function UniversityPage() {
       return;
     }
 
-    // ✅ Validate expiry
     const expiryValue = newCredential.expiry
       ? [Number(newCredential.expiry)]
       : [];
@@ -119,16 +110,13 @@ function UniversityPage() {
       );
 
       if ("ok" in result) {
-        // Refresh table from backend
         const creds = await getAllCreds();
         setTotalCreds(creds);
         setShowAddForm(false);
         setNewCredential({ userCanisterId: "", owner: "", degree: "", image: "", expiry: "" });
 
-        // 🔹 Fraud detection after adding
         const issuedCount = creds.length;
         const fraudCheck = await checkFraudRules(uniData, issuedCount);
-        console.log(`Fraud check verdict: ${fraudCheck.verdict} - ${fraudCheck.reason}`);
         if (fraudCheck.verdict === "fraud") {
           alert(`⚠ FRAUD DETECTED: ${fraudCheck.reason}`);
         }
@@ -140,7 +128,6 @@ function UniversityPage() {
     }
   };
 
-  // Filter table
   const filteredStudents = students.filter(student =>
     student.studentId.toLowerCase().includes(searchTerm.toLowerCase()) ||
     student.credential.toLowerCase().includes(searchTerm.toLowerCase())
@@ -184,9 +171,7 @@ function UniversityPage() {
       )}
 
       <div className="admin-profile">
-
-        <img src="/"  className="admin-avatar" />
-
+        <img src="/" className="admin-avatar" />
         <div className="admin-info">
           <h2>{uniData?.name || "Loading..."}</h2>
         </div>
