@@ -2,8 +2,22 @@ import * as React from "react";
 import DegreeDisplay from "../components/studentPage/DegreeDisplay";
 import Notifier from "../components/studentPage/Notifier";
 import "../styles/studentPage.scss"
+import { Users } from "../../../declarations/users";
+import { institutes } from "../../../declarations/institutes";
+import { useEffect } from "react";
 
 function StudentPage() {
+
+    var user;
+    async function getUser(){
+        user = await institutes.getAllCredentials();
+    }
+
+    useEffect(()=> {
+        getUser();
+        console.log(user);
+    },[])
+    
     return (
         <div className="student-page">
               <div className="blockchain-bg">
