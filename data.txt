@@ -1,4 +1,4 @@
-dfx canister call institutes setInstituteInfo '("Vdemy", "https://drive.google.com/file/d/1Nw-q18thszLZ9jDGmCmEHY1soSIz3HPN/view?usp=sharing")'
+dfx canister call institutes setInstituteInfo '("Vdemy", "https://marketplace.canva.com/EAGTAZ4WM80/1/0/1600w/canva-blue-and-yellow-minimalist-modern-university-logo-ZPzpFs1KHOA.jpg")'
 
 dfx canister id users
 
@@ -8,7 +8,6 @@ dfx canister call institutes issueCredential \
 in Web Development", "https://images.credly.
 com/images/41cce36f-473b-4aad-9dea-fe5f3a094
 ceb/WD_gold.png", null)'
-(variant { err = "User already has this degree" })
 
 dfx canister call institutes issueCredential   '(principal "ulvla-h7777-77774-qaacq-cai", principal "w7x7r-cok77-xa", "Certi
 fication in Robotics and Automation", "https
@@ -19,3 +18,11 @@ fication in Robotics and Automation", "https
 https://www.mathworks.com/learn/training/digital-credentials/_jcr_content/mainParsys/band_2135977416/mainParsys/sliderlight/item_10/mainParsys/image_copy.adapt.full.medium.png/1740673689226.png
 
 degree": "Certification in Advanced MATLAB"
+
+dfx identity get-principal
+piq3p-eg4pz-bvdqx-h72eu-by3gt-epzkq-bm5go-7y4ei-ryfzi-7t3xj-dae
+
+dfx canister call users grantAccessToViewer '(principal
+"piq3p-eg4pz-bvdqx-h72eu-by3gt-epzkq-bm5go-7y4ei-ryfzi-7t3xj-dae")'
+
+ dfx canister uninstall-code users
