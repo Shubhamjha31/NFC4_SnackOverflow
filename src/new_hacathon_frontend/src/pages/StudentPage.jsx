@@ -1,67 +1,71 @@
-import * as React from "react";
+import { useState, useEffect } from "react";
 import DegreeDisplay from "../components/studentPage/DegreeDisplay";
 import Notifier from "../components/studentPage/Notifier";
-import "../styles/studentPage.scss"
-import { Users } from "../../../declarations/users";
+import "../styles/studentPage.scss";
 import { institutes } from "../../../declarations/institutes";
-import { useEffect } from "react";
 
 function StudentPage() {
+  const [credentials, setCredentials] = useState([]);
 
-    var user;
-    async function getUser(){
-        user = await institutes.getAllCredentials();
+  async function getAllCreds() {
+    try {
+      const creds = await institutes.getAllCredentials();
+      const mapped = creds.map((cred) => ({
+        id: cred.id,
+        title: cred.degree, // mapping degree name to title
+        shortDescription: cred.degree, // can be replaced with a summary from backend
+        details: `Issued by ${cred.institute.toString()} on ${new Date(Number(cred.issueDate) / 1_000_000).toLocaleDateString()}`,
+        owner: cred.owner.toString(),
+        issuerID: cred.institute.toString(),
+        issueDate: new Date(Number(cred.issueDate) / 1_000_000).toLocaleDateString(),
+        expiry: cred.expiry ? new Date(Number(cred.expiry) / 1_000_000).toLocaleDateString() : "No Expiry",
+        image: cred.image,
+        revoked: cred.revoked
+      }));
+      setCredentials(mapped);
+    } catch (err) {
+      console.error("Error fetching credentials:", err);
     }
+  }
 
-    useEffect(()=> {
-        getUser();
-        console.log(user);
-    },[])
-    
-    return (
-        <div className="student-page">
-              <div className="blockchain-bg">
+  useEffect(() => {
+    getAllCreds();
+  }, []);
+
+  return (
+    <div className="student-page">
+      {/* Blockchain animated background */}
+      <div className="blockchain-bg">
         {[...Array(20)].map((_, i) => (
-          <div key={i} className="blockchain-node" style={{
-            left: `${Math.random() * 100}%`,
-            top: `${Math.random() * 100}%`,
-            animationDelay: `${i * 0.2}s`
-          }}></div>
+          <div
+            key={i}
+            className="blockchain-node"
+            style={{
+              left: `${Math.random() * 100}%`,
+              top: `${Math.random() * 100}%`,
+              animationDelay: `${i * 0.2}s`
+            }}
+          ></div>
         ))}
       </div>
-            <Notifier
-                isUserLoggedIn={true}
-                isUserGrantedAccess={false} />
-            <div className="student-info">
-                <img className="student-image" src="/"></img>
-                <div className="student-info-text">
-                    <h1 className="student-name">Shubham Jha</h1>
-                    <p className="student-bio">The company itself is a very successful company. What repulses those who praise him, what will happen to the suffering of those who are present, will I make some opening to the wise? Having said that, the trouble with the great hatred of the offices itself will turn out to be beneficial to some!</p>
-                </div>
-            </div>
-           
-            <div className="activity-summary-log">
-                {/* Academic summary BY AGENTIC AI*/} 
-                <div className="academic-summary">
-                    <h3 className="subheading">Academic Summary</h3>
-                    <p>Shubham Jha earned a B.Sc in Computer Science (TVU-CS-2023-001) on 15/05/2023. Maria Garcia completed an MBA (TVU-MBA-2023-045) on 18/05/2023. James Wilson holds an M.Sc in Data Science (TVU-DS-2023-012). All credentials are blockchain-verified.</p>
-                </div>
-                {/* Recent Activity FETCHED FROM BLOCKCHAIN (Activity log fetching function) */}
-                <div className="recent-activity">
-                    <h3 className="subheading">Recent Activity</h3>
-                    <ul><li>15/05/2023 - Issued B.Sc Computer Science to Alex Johnson</li>
-                        <li>18/05/2023 - MBA credential viewed by employer</li>
-                        <li>22/06/2023 - M.Sc Data Science shared on LinkedIn</li>
-                        <li>10/07/2023 - B.Eng Electrical expired (10-year validity ended)</li></ul>
-                </div>
-            </div>
-            {/* Display degrees  */}
-            <div>
-                <DegreeDisplay />
-            </div>
 
+      <Notifier isUserLoggedIn={true} isUserGrantedAccess={false} />
+
+      {/* Student info */}
+      <div className="student-info">
+        <img className="student-image" src="/" alt="Student" />
+        <div className="student-info-text">
+          <h1 className="student-name">Shubham Jha</h1>
+          <p className="student-bio">
+            The company itself is a very successful company...
+          </p>
         </div>
-    )
+      </div>
+
+      {/* Credentials Grid */}
+      <DegreeDisplay degrees={credentials} />
+    </div>
+  );
 }
 
 export default StudentPage;
