@@ -3,17 +3,19 @@ import DegreeDisplay from "../components/studentPage/DegreeDisplay";
 import Notifier from "../components/studentPage/Notifier";
 import "../styles/studentPage.scss";
 import { institutes } from "../../../declarations/institutes";
+import { simpleFraudCheck } from "../utils/fraudChecker";
 
 function StudentPage() {
   const [credentials, setCredentials] = useState([]);
+  const [fraudStatus, setFraudStatus] = useState({ verdict: "legit", reason: "" });
 
   async function getAllCreds() {
     try {
       const creds = await institutes.getAllCredentials();
       const mapped = creds.map((cred) => ({
         id: cred.id,
-        title: cred.degree, // mapping degree name to title
-        shortDescription: cred.degree, // can be replaced with a summary from backend
+        title: cred.degree,
+        shortDescription: cred.degree,
         details: `Issued by ${cred.institute.toString()} on ${new Date(Number(cred.issueDate) / 1_000_000).toLocaleDateString()}`,
         owner: cred.owner.toString(),
         issuerID: cred.institute.toString(),
@@ -23,6 +25,11 @@ function StudentPage() {
         revoked: cred.revoked
       }));
       setCredentials(mapped);
+
+      // Run AI fraud check
+      const fraudCheck = simpleFraudCheck(mapped);
+      setFraudStatus(fraudCheck);
+
     } catch (err) {
       console.error("Error fetching credentials:", err);
     }
@@ -34,7 +41,6 @@ function StudentPage() {
 
   return (
     <div className="student-page">
-      {/* Blockchain animated background */}
       <div className="blockchain-bg">
         {[...Array(20)].map((_, i) => (
           <div
@@ -51,7 +57,13 @@ function StudentPage() {
 
       <Notifier isUserLoggedIn={true} isUserGrantedAccess={false} />
 
-      {/* Student info */}
+      {/* Fraud alert */}
+      {fraudStatus.verdict === "fraud" && (
+        <div className="fraud-alert">
+          ⚠ FRAUD DETECTED: {fraudStatus.reason}
+        </div>
+      )}
+
       <div className="student-info">
         <img className="student-image" src="/" alt="Student" />
         <div className="student-info-text">
@@ -62,7 +74,6 @@ function StudentPage() {
         </div>
       </div>
 
-      {/* Credentials Grid */}
       <DegreeDisplay degrees={credentials} />
     </div>
   );

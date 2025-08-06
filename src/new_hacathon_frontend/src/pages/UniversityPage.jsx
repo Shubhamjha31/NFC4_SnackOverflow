@@ -2,14 +2,7 @@ import { useState, useEffect } from 'react';
 import "../styles/universityPage.scss";
 import { institutes } from '../../../declarations/institutes';
 import { Principal } from "@dfinity/principal";
-
-async function checkFraudRules(uniData, issuedCount) {
-  const threshold = 100;
-  if (issuedCount > threshold) {
-    return { verdict: "fraud", reason: `Issued ${issuedCount} credentials/hour (> ${threshold})` };
-  }
-  return { verdict: "legit", reason: `Normal activity: ${issuedCount} credentials/hour` };
-}
+import { simpleFraudCheck } from "../utils/fraudChecker";
 
 function UniversityPage() {
   const [uniData, setUniData] = useState({});
@@ -17,6 +10,7 @@ function UniversityPage() {
   const [students, setStudents] = useState([]);
   const [searchTerm, setSearchTerm] = useState("");
   const [showAddForm, setShowAddForm] = useState(false);
+  const [fraudStatus, setFraudStatus] = useState({ verdict: "legit", reason: "" });
 
   const [newCredential, setNewCredential] = useState({
     userCanisterId: "",
@@ -58,9 +52,21 @@ function UniversityPage() {
         dateIssued: new Date(Number(cred.issueDate) / 1_000_000).toLocaleDateString(),
         credential: cred.degree,
         status: cred.revoked ? "revoked" : "accepted",
-        image: cred.image
+        image: cred.image,
+        issueDate: new Date(Number(cred.issueDate) / 1_000_000).toLocaleDateString(),
+        expiry: cred.expiry ? new Date(Number(cred.expiry) / 1_000_000).toLocaleDateString() : null,
+        revoked: cred.revoked
       }));
+
       setStudents(mapped);
+
+      // AI Fraud Check
+      const fraudCheck = simpleFraudCheck(mapped);
+      setFraudStatus(fraudCheck);
+
+      if (fraudCheck.verdict === "fraud") {
+        alert(`⚠ FRAUD DETECTED: ${fraudCheck.reason}`);
+      }
     }
   }, [totalCreds]);
 
@@ -115,8 +121,13 @@ function UniversityPage() {
         setShowAddForm(false);
         setNewCredential({ userCanisterId: "", owner: "", degree: "", image: "", expiry: "" });
 
+        // Fraud check after issuing
         const issuedCount = creds.length;
-        const fraudCheck = await checkFraudRules(uniData, issuedCount);
+        const fraudCheck = simpleFraudCheck(creds.map(cred => ({
+          ...cred,
+          dateIssued: new Date(Number(cred.issueDate) / 1_000_000).toLocaleDateString(),
+          revoked: cred.revoked
+        })));
         if (fraudCheck.verdict === "fraud") {
           alert(`⚠ FRAUD DETECTED: ${fraudCheck.reason}`);
         }
@@ -141,6 +152,13 @@ function UniversityPage() {
           Add Credential
         </button>
       </div>
+
+      {/* Fraud alert banner */}
+      {fraudStatus.verdict === "fraud" && (
+        <div className="fraud-alert">
+          ⚠ FRAUD DETECTED: {fraudStatus.reason}
+        </div>
+      )}
 
       {showAddForm && (
         <div className="add-credential-form">
