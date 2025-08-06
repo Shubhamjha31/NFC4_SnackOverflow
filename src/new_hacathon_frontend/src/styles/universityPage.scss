@@ -26,10 +26,12 @@
 }
 
 .admin-avatar {
+  background:url("../assets/image.png");
+    background-position: center;
+    background-size: cover;
   width: 100px;
   height: 100px;
   border-radius: 50%;
-  object-fit: cover;
   border: 3px solid var(--secondary-color);
 }
 
